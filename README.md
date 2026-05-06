@@ -220,3 +220,15 @@ MIT
 ---
 
 Built with ❤️ using [CrewAI](https://crewai.com), [OpenRouter](https://openrouter.ai), [ElevenLabs](https://elevenlabs.io), and [Remotion](https://remotion.dev).
+
+
+## 🤝 Open Source & Contributions
+
+This repository is open-source and free for everyone to use, modify, and learn from.
+
+Contributions are highly encouraged! If you encounter any issues, bugs, or have ideas for improvements, feel free to:
+- Create an issue
+- Fork the repository
+- Submit a pull request
+
+Your contributions and feedback are greatly appreciated.
