@@ -7,34 +7,10 @@
 
 ## 🏗️ Architecture
 
-```
-┌──────────────────────────────────────────────────────────────────┐
-│                     FastAPI REST API (:8000)                     │
-│  POST /generate-ad │ POST /analyze-ads │ POST /create-video     │
-│  GET  /status/:id  │ GET  /jobs        │ GET  /download/:id     │
-└──────────────┬───────────────────────────────────────────────────┘
-               │
-               ▼
-┌──────────────────────────────────────────────────────────────────┐
-│                    CrewAI Sequential Pipeline                    │
-│                                                                  │
-│  ┌─────────────┐   ┌─────────────┐   ┌─────────────┐   ┌──────┐│
-│  │  Agent 1:   │──▶│  Agent 2:   │──▶│  Agent 3:   │──▶│Agent ││
-│  │  Ad Search  │   │  Marketing  │   │  Script     │   │  4:  ││
-│  │  Specialist │   │  Analyst    │   │  Writer     │   │Video ││
-│  └──────┬──────┘   └──────┬──────┘   └──────┬──────┘   └──┬───┘│
-│         │                 │                 │              │    │
-│    Apify SDK        LLM Analysis      GDrive + LLM   ElevenLabs│
-│    (Meta Ads)                                         + Remotion│
-└──────────────────────────────────────────────────────────────────┘
-               │
-               ▼
-┌──────────────────────────────────────────────────────────────────┐
-│                        Output Files                              │
-│  data/scraped_ads/  │  data/analysis/  │  data/scripts/         │
-│                     │                  │  data/videos/*.mp4     │
-└──────────────────────────────────────────────────────────────────┘
-```
+<img width="2700" height="1568" alt="cwt_agent_architecture" src="https://github.com/user-attachments/assets/c5b034cc-56c3-4410-852e-c5116da8844a" />
+
+
+
 
 ## 📋 Prerequisites
 
