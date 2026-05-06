@@ -1,0 +1,21 @@
+{
+  "name": "cwt-remotion-video",
+  "version": "1.0.0",
+  "description": "Remotion video renderer for CrowdWisdomTrading ad pipeline",
+  "scripts": {
+    "start": "remotion studio",
+    "build": "remotion render AdVideo out/video.mp4",
+    "render": "remotion render"
+  },
+  "dependencies": {
+    "@remotion/cli": "4.0.0",
+    "@remotion/player": "4.0.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "remotion": "4.0.0"
+  },
+  "devDependencies": {
+    "@types/react": "^18.2.0",
+    "typescript": "^5.4.0"
+  }
+}
