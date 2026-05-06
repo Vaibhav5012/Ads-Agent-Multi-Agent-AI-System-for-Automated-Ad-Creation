@@ -1,4 +1,4 @@
-# CrowdWisdomTrading — AI-Powered Ads Creation Pipeline
+# AI-Powered Ads Creation Pipeline
 
 > A production-grade backend system using **4 CrewAI agents** to automatically
 > scrape, analyse, script, and produce 60-second video ads for trading/finance brands.
