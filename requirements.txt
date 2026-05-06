@@ -1,0 +1,50 @@
+# ═══════════════════════════════════
+# FILE: requirements.txt
+# PURPOSE: Python dependencies for CrowdWisdomTrading Ads Agent
+# ═══════════════════════════════════
+
+# CrewAI - Multi-agent orchestration
+crewai[tools]>=0.80.0,<1.0.0
+langchain-openai>=0.1.0
+
+# LLM / AI
+openai>=1.30.0
+
+# Web scraping
+apify-client>=1.7.0
+
+# Voice synthesis
+elevenlabs>=1.0.0
+
+# API framework
+fastapi>=0.111.0
+uvicorn[standard]>=0.30.0
+
+# Data validation & settings
+pydantic>=2.7.0
+pydantic-settings>=2.3.0
+
+# Logging
+loguru>=0.7.0
+
+# Retry logic
+tenacity>=8.3.0
+
+# Lightweight database
+tinydb>=4.8.0
+
+# Environment variables
+python-dotenv>=1.0.0
+
+# Async HTTP
+httpx>=0.27.0
+
+# Google Drive integration
+google-api-python-client>=2.130.0
+google-auth>=2.29.0
+google-auth-oauthlib>=1.2.0
+
+# Utilities
+python-multipart>=0.0.9
+aiofiles>=23.2.0
+pydub>=0.25.1
