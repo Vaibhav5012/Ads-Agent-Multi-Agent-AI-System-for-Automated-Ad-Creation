@@ -1,234 +1,268 @@
-# AI-Powered Ads Creation Pipeline
+<div align="center">
 
-> A production-grade backend system using **4 CrewAI agents** to automatically
-> scrape, analyse, script, and produce 60-second video ads for trading/finance brands.
+# 🤖 Ads-Agent
+### AI-Powered Advertising Pipeline using Multi-Agent Systems
+
+[![Python](https://img.shields.io/badge/Python-3.11+-3776AB?style=flat&logo=python&logoColor=white)](https://python.org)
+[![CrewAI](https://img.shields.io/badge/CrewAI-Multi--Agent-FF6B6B?style=flat)](https://crewai.com)
+[![FastAPI](https://img.shields.io/badge/FastAPI-Backend-009688?style=flat&logo=fastapi&logoColor=white)](https://fastapi.tiangolo.com)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow?style=flat)](LICENSE)
+[![Docker](https://img.shields.io/badge/Docker-Ready-2496ED?style=flat&logo=docker&logoColor=white)](https://docker.com)
+
+**A production-grade backend system that uses 4 specialized CrewAI agents to autonomously scrape, analyse, script, and produce 60-second video ads for trading and finance brands — with zero human intervention.**
+
+• [Quick Start](#-quick-start) • [API Reference](#-api-reference) • [Contributing](#-contributing)
+
+</div>
 
 ---
 
-## 🏗️ Architecture
+## 🧠 What Is This?
 
-<img width="2700" height="1568" alt="cwt_agent_architecture" src="https://github.com/user-attachments/assets/c5b034cc-56c3-4410-852e-c5116da8844a" />
+Most ad creation workflows are slow, manual, and expensive. **Ads-Agent** replaces that entire pipeline with a crew of 4 autonomous AI agents that collaborate — each with a specialized role — to produce a complete 60-second video ad from scratch.
+
+You give it a niche (e.g. `"trading"`). It handles everything else.
+
+```
+Input: "trading"   →   Output: final_ad_20260514.mp4
+```
+
+---
+
+## ⚙️ Architecture
+
+The system is built around **CrewAI** — an agent orchestration framework that enables role-based, goal-driven collaboration between LLM-powered agents.
+<img width="2700" height="1568" alt="cwt_agent_architecture" src="https://github.com/user-attachments/assets/9da10bad-3ce8-43d8-9664-c3fc9b64333b" />
 
 
 
+---
 
-## 📋 Prerequisites
+## 🚀 Quick Start
+
+### Prerequisites
 
 | Requirement | Version | Required? |
 |---|---|---|
-| Python | 3.11+ | ✅ Yes |
-| Node.js | 20+ | ⚠️ For video rendering |
-| FFmpeg | Latest | ⚠️ For audio processing |
-| OpenRouter API Key | — | ✅ Yes |
+| Python | 3.11+ | ✅ |
+| Node.js | 20+ | ⚠️ Video rendering |
+| FFmpeg | Latest | ⚠️ Audio processing |
+| OpenRouter API Key | — | ✅ |
 | Apify API Token | — | ⚠️ Optional (mock fallback) |
 | ElevenLabs API Key | — | ⚠️ Optional (silent fallback) |
-| Google Drive credentials | — | ⚠️ Optional (local fallback) |
 
-## 🚀 Quick Start in 5 Commands
+### Setup in 5 Steps
 
 ```bash
-# 1. Clone the repository
-git clone <your-repo-url> cwt-ads-agent && cd cwt-ads-agent
+# 1. Clone the repo
+git clone https://github.com/Vaibhav5012/Ads-Agent-Multi-Agent-AI-System-for-Automated-Ad-Creation
+cd Ads-Agent-Multi-Agent-AI-System-for-Automated-Ad-Creation
 
-# 2. Create and configure environment
+# 2. Set up environment variables
 cp .env.example .env
-# Edit .env and add your OPENROUTER_API_KEY (required)
+# Add your OPENROUTER_API_KEY to .env (minimum required)
 
 # 3. Install Python dependencies
 pip install -r requirements.txt
 
-# 4. Install Remotion dependencies (optional, for video rendering)
+# 4. Install Remotion (optional — for video rendering)
 cd remotion && npm install && cd ..
 
 # 5. Run the pipeline
 python main.py --mode pipeline --niche "trading"
 ```
 
-## 🔑 API Keys — Where to Get Them
+> **No API keys?** The pipeline runs with mock data by default — great for local development and testing.
 
-### OpenRouter (Required)
-1. Go to [openrouter.ai](https://openrouter.ai)
-2. Sign up / log in
-3. Navigate to **Keys** → **Create Key**
-4. Copy the key → set as `OPENROUTER_API_KEY` in `.env`
-5. The free tier includes `meta-llama/llama-3.3-70b-instruct:free`
-
-### Apify (Optional)
-1. Go to [apify.com](https://apify.com)
-2. Sign up for a free account
-3. Go to **Settings** → **Integrations** → **API tokens**
-4. Create a token → set as `APIFY_API_TOKEN` in `.env`
-5. The free tier includes $5/month in platform credits
-
-### ElevenLabs (Optional)
-1. Go to [elevenlabs.io](https://elevenlabs.io)
-2. Sign up for a free account
-3. Go to **Profile** → **API Keys**
-4. Copy the key → set as `ELEVENLABS_API_KEY` in `.env`
-5. Free tier includes 10,000 characters/month
-
-### Google Drive Service Account (Optional)
-1. Go to [Google Cloud Console](https://console.cloud.google.com)
-2. Create a project → Enable the **Google Drive API**
-3. Create a **Service Account** → Download the JSON key
-4. Save it as `credentials/service_account.json`
-5. Share the target Drive folder with the service account email
-6. Set the folder ID as `GDRIVE_FOLDER_ID` in `.env`
+---
 
 ## 🖥️ Running Modes
 
-### Mode 1: Direct Pipeline Execution
+### Mode 1 — Direct Pipeline
 ```bash
 python main.py --mode pipeline --niche "trading"
 ```
 
-### Mode 2: FastAPI Server
+### Mode 2 — FastAPI Server
 ```bash
 python main.py --mode api --host 0.0.0.0 --port 8000
-# Docs: http://localhost:8000/docs
+# Interactive docs → http://localhost:8000/docs
 ```
 
-### Mode 3: Docker
+### Mode 3 — Docker
 ```bash
 docker-compose up --build
 ```
 
-## 📡 API Endpoints
+---
 
-### Generate a Full Ad
+## 📡 API Reference
+
+| Method | Endpoint | Description |
+|---|---|---|
+| `POST` | `/api/v1/generate-ad` | Trigger full pipeline for a niche |
+| `POST` | `/api/v1/analyze-ads` | Analyse scraped ads from a file |
+| `POST` | `/api/v1/create-video` | Create video from an existing script |
+| `GET` | `/api/v1/status/{job_id}` | Check job status |
+| `GET` | `/api/v1/jobs` | List all jobs |
+| `GET` | `/api/v1/download/{job_id}` | Download final video |
+| `POST` | `/api/v1/upload-company-data` | Upload brand context file |
+
+**Example — Generate an Ad:**
 ```bash
 curl -X POST http://localhost:8000/api/v1/generate-ad \
   -H "Content-Type: application/json" \
   -d '{"niche": "trading", "company_context": ""}'
 ```
 
-### Analyse Existing Ads
-```bash
-curl -X POST http://localhost:8000/api/v1/analyze-ads \
-  -H "Content-Type: application/json" \
-  -d '{"ads_file_path": "data/scraped_ads/ads_latest.json"}'
+---
+
+## 📂 Output Structure
+
 ```
+data/
+├── scraped_ads/        # Raw competitor ad data (JSON)
+├── analysis/           # Marketing insights from Analyst Agent
+├── scripts/            # Scene-by-scene ad scripts (JSON)
+└── videos/
+    ├── audio/          # Per-scene audio files (MP3)
+    ├── subtitles.json  # Subtitle data
+    ├── subtitles.srt   # Subtitle file
+    └── final_ad_*.mp4  # Final rendered video
 
-### Create Video from Script
-```bash
-curl -X POST http://localhost:8000/api/v1/create-video \
-  -H "Content-Type: application/json" \
-  -d '{"script_file_path": "data/scripts/script_latest.json"}'
+logs/
+└── cwt_*.log           # Pipeline execution logs
 ```
-
-### Check Job Status
-```bash
-curl http://localhost:8000/api/v1/status/{job_id}
-```
-
-### List All Jobs
-```bash
-curl http://localhost:8000/api/v1/jobs
-```
-
-### Download Final Video
-```bash
-curl -O http://localhost:8000/api/v1/download/{job_id}
-```
-
-### Upload Company Data
-```bash
-curl -X POST http://localhost:8000/api/v1/upload-company-data \
-  -F "file=@my_company_info.md"
-```
-
-## 📂 Output File Locations
-
-| Output | Location |
-|---|---|
-| Scraped ads | `data/scraped_ads/ads_*.json` |
-| Marketing analysis | `data/analysis/analysis_*.json` |
-| Ad scripts | `data/scripts/script_*.json` |
-| Audio files | `data/videos/audio/scene_*.mp3` |
-| Subtitles | `data/videos/subtitles.json`, `subtitles.srt` |
-| Final video | `data/videos/final_ad_*.mp4` |
-| Job database | `data/jobs.json` |
-| Logs | `logs/cwt_*.log` |
-
-## 🧩 How to Extend: Adding a New Agent
-
-1. **Create the agent** in `src/agents/new_agent.py`:
-   ```python
-   from crewai import Agent
-   from langchain_openai import ChatOpenAI
-   from src.config.settings import get_settings
-
-   def create_my_agent() -> Agent:
-       settings = get_settings()
-       llm = ChatOpenAI(
-           model=settings.openrouter_model,
-           openai_api_key=settings.openrouter_api_key,
-           openai_api_base=settings.openrouter_base_url,
-       )
-       return Agent(
-           role="My New Role",
-           goal="What this agent achieves",
-           backstory="Agent's expertise and background",
-           tools=[],
-           llm=llm,
-           verbose=True,
-       )
-   ```
-
-2. **Create the task** in `src/tasks/task_definitions.py`:
-   ```python
-   def create_my_task(agent: Agent) -> Task:
-       return Task(
-           description="Detailed task instructions...",
-           expected_output="What the task should return",
-           agent=agent,
-       )
-   ```
-
-3. **Add to the crew** in `src/crew/ad_crew.py`:
-   ```python
-   # In build_crew():
-   my_agent = create_my_agent()
-   my_task = create_my_task(my_agent)
-   # Add to agents and tasks lists
-   ```
-
-## 🐛 Troubleshooting
-
-### "OPENROUTER_API_KEY is not set"
-→ Create a `.env` file from `.env.example` and add your OpenRouter key.
-
-### "Apify scrape failed — using mock data"
-→ This is normal if `APIFY_API_TOKEN` is not set. The pipeline will use realistic mock ads for development.
-
-### "npx not found" or Remotion render fails
-→ Install Node.js 20+ and run `cd remotion && npm install`.
-
-### "FFmpeg not found"
-→ Install FFmpeg: `choco install ffmpeg` (Windows) / `brew install ffmpeg` (macOS) / `apt install ffmpeg` (Linux).
-
-### LLM rate limiting (429 errors)
-→ The free OpenRouter model has rate limits. The pipeline includes retry logic with exponential backoff. Wait a few minutes and retry.
-
-### Import errors
-→ Make sure you're running from the project root: `python main.py` (not from inside `src/`).
-
-## 📄 License
-
-MIT
 
 ---
 
-Built with ❤️ using [CrewAI](https://crewai.com), [OpenRouter](https://openrouter.ai), [ElevenLabs](https://elevenlabs.io), and [Remotion](https://remotion.dev).
+## 🔑 API Keys Setup
 
+<details>
+<summary><b>OpenRouter (Required)</b></summary>
 
-## 🤝 Open Source & Contributions
+1. Go to [openrouter.ai](https://openrouter.ai) and sign up
+2. Navigate to **Keys → Create Key**
+3. Add to `.env` as `OPENROUTER_API_KEY`
+4. Free tier includes `meta-llama/llama-3.3-70b-instruct:free`
 
-This repository is open-source and free for everyone to use, modify, and learn from.
+</details>
 
-Contributions are highly encouraged! If you encounter any issues, bugs, or have ideas for improvements, feel free to:
-- Create an issue
-- Fork the repository
-- Submit a pull request
+<details>
+<summary><b>Apify (Optional — for live scraping)</b></summary>
 
-Your contributions and feedback are greatly appreciated.
+1. Go to [apify.com](https://apify.com) and sign up
+2. Navigate to **Settings → Integrations → API Tokens**
+3. Add to `.env` as `APIFY_API_TOKEN`
+4. Free tier includes $5/month in credits
+
+</details>
+
+<details>
+<summary><b>ElevenLabs (Optional — for voiceover)</b></summary>
+
+1. Go to [elevenlabs.io](https://elevenlabs.io) and sign up
+2. Navigate to **Profile → API Keys**
+3. Add to `.env` as `ELEVENLABS_API_KEY`
+4. Free tier: 10,000 characters/month
+
+</details>
+
+<details>
+<summary><b>Google Drive (Optional — for cloud output)</b></summary>
+
+1. Create a project in [Google Cloud Console](https://console.cloud.google.com)
+2. Enable the **Google Drive API**
+3. Create a **Service Account** and download the JSON key
+4. Save as `credentials/service_account.json`
+5. Set `GDRIVE_FOLDER_ID` in `.env`
+
+</details>
+
+---
+
+## 🧩 Extending the Pipeline
+
+Adding a new agent takes 3 steps:
+
+**1. Create the agent** → `src/agents/new_agent.py`
+```python
+from crewai import Agent
+from src.config.settings import get_settings
+
+def create_my_agent() -> Agent:
+    settings = get_settings()
+    return Agent(
+        role="My New Role",
+        goal="What this agent achieves",
+        backstory="Agent expertise and background",
+        tools=[],
+        llm=...,
+        verbose=True,
+    )
+```
+
+**2. Create the task** → `src/tasks/task_definitions.py`
+```python
+def create_my_task(agent: Agent) -> Task:
+    return Task(
+        description="Detailed task instructions...",
+        expected_output="What the task should return",
+        agent=agent,
+    )
+```
+
+**3. Register in the crew** → `src/crew/ad_crew.py`
+```python
+my_agent = create_my_agent()
+my_task = create_my_task(my_agent)
+# Add to agents and tasks lists in build_crew()
+```
+
+---
+
+## 🐛 Troubleshooting
+
+| Error | Fix |
+|---|---|
+| `OPENROUTER_API_KEY is not set` | Copy `.env.example` → `.env` and add your key |
+| `Apify scrape failed — using mock data` | Normal without an Apify token. Pipeline uses mock ads |
+| `npx not found` / Remotion fails | Install Node.js 20+ and run `cd remotion && npm install` |
+| `FFmpeg not found` | Install via `brew install ffmpeg` / `apt install ffmpeg` / `choco install ffmpeg` |
+| `429 rate limit` | OpenRouter free tier has limits. Pipeline auto-retries with backoff |
+| Import errors | Run from project root: `python main.py`, not from inside `src/` |
+
+---
+
+## 🛠️ Tech Stack
+
+- **Agent Orchestration** — [CrewAI](https://crewai.com)
+- **LLM Provider** — [OpenRouter](https://openrouter.ai) (Llama 3.3 70B)
+- **Web Scraping** — [Apify](https://apify.com)
+- **Text-to-Speech** — [ElevenLabs](https://elevenlabs.io)
+- **Video Rendering** — [Remotion](https://remotion.dev)
+- **API Framework** — [FastAPI](https://fastapi.tiangolo.com)
+- **Containerization** — Docker
+
+---
+
+## 🤝 Contributing
+
+Contributions are welcome! If you have ideas, fixes, or improvements:
+
+1. Fork the repository
+2. Create a feature branch: `git checkout -b feature/your-idea`
+3. Commit your changes: `git commit -m "Add: your feature"`
+4. Push and open a Pull Request
+
+---
+
+## 📄 License
+
+MIT — free to use, modify, and build on.
+
+---
+
+<div align="center">
+Built with ❤️ using CrewAI · OpenRouter · ElevenLabs · Remotion
+</div>
