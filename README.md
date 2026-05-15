@@ -265,5 +265,5 @@ MIT — free to use, modify, and build on.
 ---
 
 <div align="center">
-Built with ❤️ using CrewAI · OpenRouter · ElevenLabs · Remotion
+Built using CrewAI · OpenRouter · ElevenLabs · Remotion
 </div>
