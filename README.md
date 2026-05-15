@@ -32,7 +32,8 @@ Input: "trading"   →   Output: final_ad_20260514.mp4
 ## ⚙️ Architecture
 
 The system is built around **CrewAI** — an agent orchestration framework that enables role-based, goal-driven collaboration between LLM-powered agents.
-<img width="2700" height="1568" alt="cwt_agent_architecture" src="https://github.com/user-attachments/assets/9da10bad-3ce8-43d8-9664-c3fc9b64333b" />
+<img width="2700" height="1568" alt="cwt_agent_architecture" src="https://github.com/user-attachments/assets/f945439e-aa7d-4fb1-9c61-7371717afa95" />
+
 
 
 
